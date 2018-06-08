@@ -1,4 +1,5 @@
 /local/
+cpanfile.snapshot
 
 # Intellij IDEA
 *.iml
