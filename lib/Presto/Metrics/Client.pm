@@ -81,6 +81,7 @@ Presto::Metrics::Client - Presto metrics library for perl
 
     # node metrics : see also t/01_node_json.t
     my $node_json = $client->get_node_json();
+    print Dumper $node_json;
     # [
     #   {
     #     'uri' => 'http://XXX.XXX.XXX.XXX:8080',
@@ -93,21 +94,12 @@ Presto::Metrics::Client - Presto metrics library for perl
     #     'age' => '45.91d',
     #     'recentFailuresByType' => {},
     #   },
-    #   {
-    #     'uri' => 'http://YYY.YYY.YYY.YYY:8080',
-    #     'recentRequests' => '120.002777764918',
-    #     'recentFailures' => '0',
-    #     'recentSuccesses' => '120.002777764918',
-    #     'lastRequestTime' => '2018-06-08T06:41:10.265Z',
-    #     'lastResponseTime' => '2018-06-08T06:41:10.265Z',
-    #     'recentFailureRatio' => '0',
-    #     'age' => '45.91d',
-    #     'recentFailuresByType' => {},
-    #   }
+    #   ...
     # ]
 
     # query metrics : see also t/02_get_query_json.t
     my $query_json = $client->get_query_json();
+    print Dumper $query_json;
     # [
     #   {
     #     "queryId": "20180701_122015_00001_aaaaa",
