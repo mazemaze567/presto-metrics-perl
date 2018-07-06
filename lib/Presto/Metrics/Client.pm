@@ -43,19 +43,24 @@ has query_metrics_path => (
 sub get_node_json {
     my $self = shift;
     my $url = sprintf 'http://%s:%d%s', $self->server, $self->port, $self->node_metrics_path;
-    my $response = $self->furl->get($url);
-    die $response->status_line unless $response->is_success;
-    my $node_json = decode_json $response->content;
+    my $node_json = $self->_submit_get_request($url);
     return $node_json;
 }
 
 sub get_query_json {
     my $self = shift;
     my $url = sprintf 'http://%s:%d%s', $self->server, $self->port, $self->query_metrics_path;
+    my $query_json = $self->_submit_get_request($url);
+    return $query_json;
+}
+
+
+sub _submit_get_request {
+    my ($self, $url) = @_;
     my $response = $self->furl->get($url);
     die $response->status_line unless $response->is_success;
-    my $node_query = decode_json $response->content;
-    return $node_query;
+    my $json_content = decode_json $response->content;
+    return $json_content;
 }
 
 
