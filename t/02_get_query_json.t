@@ -58,6 +58,9 @@ my $suv = Presto::Metrics::Client->new(
 );
 my $actual = $suv->get_query_json();
 
+$Mock_furl->called_pos_ok(1, 'get', 'Furl : method');
+$Mock_furl->called_args_pos_is(1, 2, 'http://192.168.10.1:8080/v1/query', 'Furl : url');
+
 is @$actual, 2, 'get_query_json : number of queries';
 is @$actual[0]->{'queryId'}, '20180701_122015_00001_aaaaa', 'get_query_json : [0].queryId';
 is @$actual[0]->{'state'}, 'RUNNING', 'get_query_json : [0].state';
