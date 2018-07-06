@@ -10,8 +10,23 @@ use Presto::Metrics::Client;
 # set furl mock
 $Mock_furl->set_isa('Furl');
 $Mock_furl->mock(get => sub {Furl::Response->new});
-$Mock_furl_res->mock(content => sub {'[{"uri":"http://192.168.10.1:8080","recentRequests":10.2,"recentFailures":0.0,"recentSuccesses":10.2,"lastRequestTime":"2018-06-08T02:52:25.764Z","lastResponseTime":"2018-06-08T02:52:25.765Z","recentFailureRatio":0.0,"age":"1.75d","recentFailuresByType":{}}]'});
-
+$Mock_furl_res->mock(content => sub {
+    <<"EOF";
+    [
+        {
+            "uri":"http://192.168.10.1:8080",
+            "recentRequests":10.2,
+            "recentFailures":0.0,
+            "recentSuccesses":10.2,
+            "lastRequestTime":"2018-06-08T02:52:25.764Z",
+            "lastResponseTime":"2018-06-08T02:52:25.765Z",
+            "recentFailureRatio":0.0,
+            "age":"1.75d",
+            "recentFailuresByType":{}
+        }
+    ]
+EOF
+});
 
 my $suv = Presto::Metrics::Client->new(
     server => '192.168.10.1',
