@@ -34,7 +34,7 @@ has node_metrics_path => (
 );
 
 
-sub get_node_metrics {
+sub get_node_json {
     my $self = shift;
     my $url = sprintf 'http://%s:%d%s', $self->server, $self->port, $self->node_metrics_path;
     my $response = $self->furl->get($url);
@@ -65,7 +65,7 @@ Presto::Metrics::Client - Presto metrics library for perl
     );
 
     # node metrics : see also t/01_node_metrics.t
-    my $node_metrics = $client->get_node_metrics();
+    my $node_metrics = $client->get_node_json();
     # [
     #   {
     #     'uri' => 'http://XXX.XXX.XXX.XXX:8080',

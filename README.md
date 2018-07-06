@@ -13,7 +13,7 @@ Presto metrics library for perl
     );
 
     # node metrics : see also t/01_node_metrics.t
-    my $node_metrics = $client->get_node_metrics();
+    my $node_metrics = $client->get_node_json();
     # [
     #   {
     #     'uri' => 'http://XXX.XXX.XXX.XXX:8080',
