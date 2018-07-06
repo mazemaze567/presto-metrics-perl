@@ -34,15 +34,18 @@ my $suv = Presto::Metrics::Client->new(
 );
 my $actual = $suv->get_node_json();
 
-is @$actual, 1, "get_node_json : number of nodes";
-is @$actual[0]->{'uri'}, 'http://192.168.10.1:8080', 'get_node_json : uri';
-is @$actual[0]->{'recentRequests'}, 10.2, 'get_node_json : recentRequests';
-is @$actual[0]->{'recentFailures'}, 0, 'get_node_json : recentFailures';
-is @$actual[0]->{'recentSuccesses'}, 10.2, 'get_node_json : recentSuccesses';
-is @$actual[0]->{'lastRequestTime'}, '2018-06-08T02:52:25.764Z', 'get_node_json : lastRequestTime';
-is @$actual[0]->{'lastResponseTime'}, '2018-06-08T02:52:25.765Z', 'get_node_json : lastResponseTime';
-is @$actual[0]->{'recentFailureRatio'}, 0, 'get_node_json : recentFailureRatio';
-is @$actual[0]->{'age'}, '1.75d', 'get_node_json : age';
-is_deeply @$actual[0]->{'recentFailuresByType'}, {}, 'get_node_json : recentFailureByType';
+$Mock_furl->called_pos_ok(1, 'get', 'Furl method');
+$Mock_furl->called_args_pos_is(1, 2, 'http://192.168.10.1:8080/v1/node', 'Furl url parameter');
+
+is @$actual, 1, "number of nodes";
+is @$actual[0]->{'uri'}, 'http://192.168.10.1:8080', 'uri';
+is @$actual[0]->{'recentRequests'}, 10.2, 'recentRequests';
+is @$actual[0]->{'recentFailures'}, 0, 'recentFailures';
+is @$actual[0]->{'recentSuccesses'}, 10.2, 'recentSuccesses';
+is @$actual[0]->{'lastRequestTime'}, '2018-06-08T02:52:25.764Z', 'lastRequestTime';
+is @$actual[0]->{'lastResponseTime'}, '2018-06-08T02:52:25.765Z', 'lastResponseTime';
+is @$actual[0]->{'recentFailureRatio'}, 0, 'recentFailureRatio';
+is @$actual[0]->{'age'}, '1.75d', 'age';
+is_deeply @$actual[0]->{'recentFailuresByType'}, {}, 'recentFailureByType';
 
 done_testing();
