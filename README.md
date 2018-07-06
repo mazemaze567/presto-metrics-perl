@@ -38,5 +38,32 @@ Presto metrics library for perl
     #     'recentFailuresByType' => {},
     #   }
     # ]
+
+    # query metrics : see also t/02_get_query_json.t
+    my $query_json = $client->get_query_json();
+    # [
+    #   {
+    #     "queryId": "20180701_122015_00001_aaaaa",
+    #     "session": {
+    #       "queryId": "20180701_122015_00001_aaaaa",
+    #       "transactionId": "aaaaaaaaaa",
+    #       ...
+    #     },
+    #     "state": "RUNNING",
+    #     "memoryPool": "general",
+    #     "scheduled": true,
+    #     "self": "http://192.168.10.1:8080/v1/query/20180701_122015_00001_aaaaa",
+    #     "query": "select * from table1",
+    #     "queryStats": {
+    #       "createTime": "2018-07-01T12:20:15.123Z",
+    #       "elapsedTime": "2.70s",
+    #       "executionTime": "2.68s",
+    #       ...
+    #     },
+    #     ...
+    #   },
+    #   ...
+    # ]
+
 ```
 

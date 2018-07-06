@@ -33,6 +33,12 @@ has node_metrics_path => (
     default => sub {'/v1/node'},
 );
 
+has query_metrics_path => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => sub {'/v1/query'},
+);
+
 
 sub get_node_json {
     my $self = shift;
@@ -41,6 +47,15 @@ sub get_node_json {
     die $response->status_line unless $response->is_success;
     my $node_json = decode_json $response->content;
     return $node_json;
+}
+
+sub get_query_json {
+    my $self = shift;
+    my $url = sprintf 'http://%s:%d%s', $self->server, $self->port, $self->query_metrics_path;
+    my $response = $self->furl->get($url);
+    die $response->status_line unless $response->is_success;
+    my $node_query = decode_json $response->content;
+    return $node_query;
 }
 
 
@@ -89,6 +104,32 @@ Presto::Metrics::Client - Presto metrics library for perl
     #     'age' => '45.91d',
     #     'recentFailuresByType' => {},
     #   }
+    # ]
+
+    # query metrics : see also t/02_get_query_json.t
+    my $query_json = $client->get_query_json();
+    # [
+    #   {
+    #     "queryId": "20180701_122015_00001_aaaaa",
+    #     "session": {
+    #       "queryId": "20180701_122015_00001_aaaaa",
+    #       "transactionId": "aaaaaaaaaa",
+    #       ...
+    #     },
+    #     "state": "RUNNING",
+    #     "memoryPool": "general",
+    #     "scheduled": true,
+    #     "self": "http://192.168.10.1:8080/v1/query/20180701_122015_00001_aaaaa",
+    #     "query": "select * from table1",
+    #     "queryStats": {
+    #       "createTime": "2018-07-01T12:20:15.123Z",
+    #       "elapsedTime": "2.70s",
+    #       "executionTime": "2.68s",
+    #       ...
+    #     },
+    #     ...
+    #   },
+    #   ...
     # ]
 
 =head1 DESCRIPTION
