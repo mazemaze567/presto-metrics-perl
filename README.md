@@ -12,8 +12,8 @@ Presto metrics library for perl
         port => 8080,
     );
 
-    # node metrics : see also t/01_node_metrics.t
-    my $node_metrics = $client->get_node_json();
+    # node metrics : see also t/01_node_json.t
+    my $node_json = $client->get_node_json();
     # [
     #   {
     #     'uri' => 'http://XXX.XXX.XXX.XXX:8080',
