@@ -58,17 +58,17 @@ my $suv = Presto::Metrics::Client->new(
 );
 my $actual = $suv->get_query_json();
 
-$Mock_furl->called_pos_ok(1, 'get', 'Furl : method');
-$Mock_furl->called_args_pos_is(1, 2, 'http://192.168.10.1:8080/v1/query', 'Furl : url');
+$Mock_furl->called_pos_ok(1, 'get', 'Furl method');
+$Mock_furl->called_args_pos_is(1, 2, 'http://192.168.10.1:8080/v1/query', 'Furl url parameter');
 
-is @$actual, 2, 'get_query_json : number of queries';
-is @$actual[0]->{'queryId'}, '20180701_122015_00001_aaaaa', 'get_query_json : [0].queryId';
-is @$actual[0]->{'state'}, 'RUNNING', 'get_query_json : [0].state';
-is @$actual[0]->{'query'}, 'select * from table1', 'get_query_json : [0].query';
-is @$actual[0]->{'queryStats'}->{'elapsedTime'}, '2.70s', 'get_query_json : [0].queryStats.elapsedTime';
-is @$actual[1]->{'queryId'}, '20180701_122015_00002_bbbbb', 'get_query_json : [1].queryId';
-is @$actual[1]->{'state'}, 'FINISHED', 'get_query_json : [1].state';
-is @$actual[1]->{'query'}, 'show tables', 'get_query_json : [1].query';
-is @$actual[1]->{'queryStats'}->{'elapsedTime'}, '1.00s', 'get_query_json : [1].queryStats.elapsedTime';
+is @$actual, 2, 'number of queries';
+is @$actual[0]->{'queryId'}, '20180701_122015_00001_aaaaa', '[0].queryId';
+is @$actual[0]->{'state'}, 'RUNNING', '[0].state';
+is @$actual[0]->{'query'}, 'select * from table1', '[0].query';
+is @$actual[0]->{'queryStats'}->{'elapsedTime'}, '2.70s', '[0].queryStats.elapsedTime';
+is @$actual[1]->{'queryId'}, '20180701_122015_00002_bbbbb', '[1].queryId';
+is @$actual[1]->{'state'}, 'FINISHED', '[1].state';
+is @$actual[1]->{'query'}, 'show tables', '[1].query';
+is @$actual[1]->{'queryStats'}->{'elapsedTime'}, '1.00s', '[1].queryStats.elapsedTime';
 
 done_testing();
